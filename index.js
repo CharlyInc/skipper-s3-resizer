@@ -249,13 +249,13 @@ module.exports = function SkipperS3 (globalOpts) {
 
       // Only one dimension is specified (keeps aspect-ratio)
       if (width && !height || !width && height)
-        __resizedFile = gm(__newFile).resize(width, height).stream();
+        __resizedFile = gm(__newFile).resize(width, height).autoOrient().noProfile().stream();
       
       // Both dimensions are specified
       else {
         // Stretch
         if (stretch === true)
-          __resizedFile = gm(__newFile).resize(width, height, '!').stream();
+          __resizedFile = gm(__newFile).resize(width, height, '!').autoOrient().noProfile().stream();
         // Cover
         else
           __resizedFile = __newFile.pipe(resizer.cover({width: width, height: height}));
